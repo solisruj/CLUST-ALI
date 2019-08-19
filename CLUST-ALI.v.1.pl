@@ -53,60 +53,15 @@ sub Read_File{
 }
 
 
-
 sub Main{
 
 	my @args = () ;
-
 	@args = Arguments() ;
 
-	print($args[0], "\n") ;
+	#print($args[0], "\n") ;
 
 	Read_File($args[0]) ;
 
 }
 
-
 Main() ;
-
-
-
-
-
-
-
-# setup my defaults
-#my $name     = 'Bob';
-#my $age      = 26;
-#my $employed = 0;
-#my $help     = 0;
-
-#GetOptions(
-#    'name=s'    => \$name,
-#    'age=i'     => \$age,
-#    'employed!' => \$employed,
-#    'help!'     => \$help,
-#) or die "Incorrect usage!\n";
-
-#if( $help ) {
-#    print "Common on, it's really not that hard.\n";
-#} else {
-#    print "My name is $name.\n";
-#    print "I am $age years old.\n";
-#    print "I am currently " . ($employed ? '' : 'un') . "employed.\n";
-#}
-
-
-# test for the existence of the options on the command line.
-# in a normal program you'd do more than just print these.
-#print "-h $options{h}\n" if defined $options{h};
-#print "-j $options{j}\n" if defined $options{j};
-#print "-l $options{l}\n" if defined $options{l};
-#print "-n $options{n}\n" if defined $options{n};
-#print "-s $options{s}\n" if defined $options{s};
-
-# other things found on the command line
-#print "Other things found on the command line:\n" if $ARGV[0];
-#foreach (@ARGV) {
-#  print "$_\n";
-#}
