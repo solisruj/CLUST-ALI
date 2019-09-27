@@ -75,35 +75,10 @@ sub Centers{
 
 	for(my $i = 0; $i < $num ; $i ++){
 		push(@centers, [rand($value1), rand($value2)]) ;
-		print(rand($value1), "\t", rand($value2), "\n") ;
+		print("Center ", $i, ": ", rand($value1), "\t", rand($value2), "\n") ;
 	}
 	return @centers ;
 }
-
-sub Main{
-
-	my @args = () ;
-	@args = Arguments() ;
-
-	my @data = Read_File($args[0]) ;
-
-	my $x = Max(\@data, 0) ;
-	my $y = Max(\@data, 1) ;
-
-	print($x, "\t", $y, "\n\n") ;
-	
-	my @cluster_centers = Centers($args[1], $x, $y) ;
-
-	print("\n\n") ;
-
-	Assign(\@data, \@cluster_centers) ;
-
-
-}
-
-Main() ;
-
-
 
 sub Assign{
 
@@ -120,10 +95,50 @@ sub Assign{
 
 		for(my $j = 0; $j <= $#centers; $j ++){
 
-			my $Euc_dist = sqrt((($x) - ($centers[$j][0]))**2 + (($y) - ($centers[$j][1]))**2) ;
-			print($Euc_dist, "\t", $j+1, "\n") ;
+			#my $Euc_dist = sqrt((($x) - ($centers[$j][0]))**2 + (($y) - ($centers[$j][1]))**2) ;
+			#print("O: ", $Euc_dist, "\t", $j+1, "\n") ;
+
+			my $E = Euclidean($x, $y, $centers[$j][0], $centers[$j][1]) ;
+
+			push(@clustered_data, [$E, $x, $y, $centers[$j][0], $centers[$j][1]], $j+1) ;
 		}
-		print("\n") ;
 	}
+	return(@clustered_data) ;
+}
+
+sub Euclidean{
+
+	my $x = $_[0] ;
+	my $y = $_[1] ;
+	my $x_cent = $_[2] ;
+	my $y_cent = $_[3] ;
+
+	my $Ed = sqrt((($x) - ($x_cent))**2 + (($y) - ($y_cent))**2) ;
+	
+	return $Ed ;
+}
+
+sub Main{
+
+	my @args = () ;
+	@args = Arguments() ;
+
+	my @data = Read_File($args[0]) ;
+
+	my $x = Max(\@data, 0) ;
+	my $y = Max(\@data, 1) ;
+
+	print("Max: ", $x, "\t", $y, "\n\n") ;
+	
+	my @cluster_centers = Centers($args[1], $x, $y) ;
+
+	print("\n\n") ;
+
+	Assign(\@data, \@cluster_centers) ;
+
 
 }
+
+Main() ;
+
+sub Average
